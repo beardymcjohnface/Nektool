@@ -98,7 +98,7 @@ def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_con
         write_config(nf_config, paramsfile)
         nextflow_command += ['-params-file', paramsfile]
 
-        # display the runtime configuration
+        # display the runtime params
         msg_box('Runtime parameters', errmsg=yaml.dump(nf_config, Dumper=yaml.Dumper))
 
     if configfile:
@@ -114,6 +114,11 @@ def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_con
                 append_config_block(scope='"conda"', useMamba='"true"', cacheDir=f'"{conda_prefix}"')
             else:
                 append_config_block(scope='"conda"', cacheDir=f'"{conda_prefix}"')
+
+        nextflow_command += ['-c', configfile]
+
+        # display the runtime configuration
+        msg_box('Launcher Configuration', errmsg=open(configfile, 'r').read())
 
     # add any additional NextFlow commands
     if next_extra:
@@ -138,7 +143,7 @@ Any click options that will be used in more than one subcommand can be defined h
 def common_options(func):
     """Common options decorator for use with click commands."""
     options = [
-        click.option('--paramsfile', default='params.yaml', help='Custom config file', show_default=True),
+        click.option('--paramsfile', default='params.yaml', help='Custom params file', show_default=True),
         click.option('--configfile', default='nextflow.config', help='Custom config file', show_default=True),
         click.option('--threads', help='Number of threads to use', default=1, show_default=True),
         click.option('--use-conda/--no-use-conda', default=True, help='Use conda for NextFlow rules',
