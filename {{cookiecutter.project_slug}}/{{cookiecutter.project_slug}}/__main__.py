@@ -111,9 +111,9 @@ def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_con
         # Use conda
         if use_conda:
             if conda_frontend == 'mamba':
-                append_config_block(scope='"conda"', useMamba='"true"', cacheDir=f'"{conda_prefix}"')
+                append_config_block(scope='conda', useMamba='"true"', cacheDir=f'"{conda_prefix}"')
             else:
-                append_config_block(scope='"conda"', cacheDir=f'"{conda_prefix}"')
+                append_config_block(scope='conda', cacheDir=f'"{conda_prefix}"')
 
         nextflow_command += ['-c', configfile]
 
