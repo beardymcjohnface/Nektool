@@ -6,6 +6,7 @@ printIn = params.input
 process yeet {
   output:
     stdout
+  conda 'conda-forge::zstd'
   shell:
   """
   echo $printIn
