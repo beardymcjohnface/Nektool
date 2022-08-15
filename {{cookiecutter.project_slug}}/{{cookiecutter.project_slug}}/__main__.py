@@ -50,11 +50,13 @@ def append_config_block(nf_config = 'nextflow.config', scope=None, **kwargs):
 
 
 def copy_config(local_config=None, system_config=None):
-    if not os.path.isfile(local_config):
-        msg(f'Copying system default config to {local_config}')
-        copyfile(system_config, local_config)
-    else:
-        msg(f'Config file {local_config} already exists. Using existing config file.')
+    msg(f'Copying system default config to {local_config}')
+    copyfile(system_config, local_config)
+    # if not os.path.isfile(local_config):
+    #     msg(f'Copying system default config to {local_config}')
+    #     copyfile(system_config, local_config)
+    # else:
+    #     msg(f'Config file {local_config} already exists. Using existing config file.')
 
 
 def read_config(file):
@@ -88,7 +90,7 @@ def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_con
 
     if paramsfile:
         # copy sys default params if needed
-        copy_config(local_config=paramsfile, system_config=os.path.join('workflow', 'params.yaml'))
+        copy_config(local_config=paramsfile, system_config=nek_base(os.path.join('workflow', 'params.yaml')))
 
         # read the params
         nf_config = read_config(paramsfile)
@@ -105,7 +107,7 @@ def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_con
         msg_box('Runtime parameters', errmsg=yaml.dump(nf_config, Dumper=yaml.Dumper))
 
     if configfile:
-        copy_config(local_config=configfile, system_config=os.path.join('workflow', 'nextflow.config'))
+        copy_config(local_config=configfile, system_config=nek_base(os.path.join('workflow', 'nextflow.config')))
 
         # add threads
         if threads:
