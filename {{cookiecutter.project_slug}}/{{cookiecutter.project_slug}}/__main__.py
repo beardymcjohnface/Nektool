@@ -52,11 +52,6 @@ def append_config_block(nf_config = 'nextflow.config', scope=None, **kwargs):
 def copy_config(local_config=None, system_config=None):
     msg(f'Copying system default config to {local_config}')
     copyfile(system_config, local_config)
-    # if not os.path.isfile(local_config):
-    #     msg(f'Copying system default config to {local_config}')
-    #     copyfile(system_config, local_config)
-    # else:
-    #     msg(f'Config file {local_config} already exists. Using existing config file.')
 
 
 def read_config(file):
@@ -116,9 +111,9 @@ def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_con
         # Use conda
         if use_conda:
             if conda_frontend == 'mamba':
-                append_config_block(scope='conda', useMamba="true", cacheDir=conda_prefix)
+                append_config_block(scope='"conda"', useMamba='"true"', cacheDir=f'"{conda_prefix}"')
             else:
-                append_config_block(scope='conda', cacheDir=conda_prefix)
+                append_config_block(scope='"conda"', cacheDir=f'"{conda_prefix}"')
 
     # add any additional NextFlow commands
     if next_extra:
