@@ -190,9 +190,6 @@ Required:           {{cookiecutter.project_slug}} run --input [file]
 Specify threads:    {{cookiecutter.project_slug}} run ... --threads [threads]
 Disable conda:      {{cookiecutter.project_slug}} run ... --no-use-conda 
 Add NextFlow args:  {{cookiecutter.project_slug}} run ... -log logDir -dockerize
-Available targets:
-    all             Run everything (default)
-    print_targets   List available targets
 """
 
 
@@ -221,15 +218,17 @@ def run(_input, paramsfile, configfile, threads, use_conda, conda_frontend, cond
 
 
 """SUBCOMMAND EXAMPLE
-Copy the system default config file to working directory.
+Copy the system default config files to the working directory.
 """
 
 
 @click.command()
 @click.option('--configfile', default='config.yaml', help='Copy template config to file', show_default=True)
-def config(configfile, **kwargs):
-    """Copy the system default config file"""
-    copy_config(configfile)
+@click.option('--paramsfile', default='params.yaml', help='Custom params file', show_default=True)
+def config(configfile, paramsfile, **kwargs):
+    """Copy the system default config files"""
+    copy_config(local_config=configfile, system_config=nek_base(os.path.join('workflow', 'nextflow.config')))
+    copy_config(local_config=paramsfile, system_config=nek_base(os.path.join('workflow', 'params.yaml')))
 
 
 cli.add_command(run)
