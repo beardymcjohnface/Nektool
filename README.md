@@ -36,6 +36,7 @@ my_nektool/
 ├── my_nektool
 │   ├── __init__.py
 │   ├── __main__.py
+│   ├── util.py
 │   ├── my_nektool.LICENSE
 │   ├── my_nektool.VERSION
 │   └── workflow
@@ -61,6 +62,10 @@ working directory which will be passed to NextFlow. The launcher uses the rest o
 to launch NextFlow. Most of the command line arguments are boilerplate for running NextFlow and do not require much if
 any customisation.
 
+## Customising your tool
+
+__[Check out the wiki page](https://github.com/beardymcjohnface/Nektool/wiki/Customising-your-Nektool) for a detailed example on customising your Nektool.__
+
 ## Installing and testing your tool
 
 For development, cd to your Snaketool directory and install with pip:
@@ -77,11 +82,6 @@ Test run the template:
 ```shell
 my_nektool run --input yeet
 ```
-
-## Customising your tool
-
-Check out the [wiki page](https://github.com/beardymcjohnface/Nektool/wiki) 
-for a detailed example on customising your Nektool.
 
 ## Publishing your tool
 
