@@ -23,7 +23,7 @@ def common_options(func):
                      default='{{cookiecutter.conda_frontend}}', help='Specify Conda frontend', show_default=True),
         click.option('--conda-prefix', default=nek_base(os.path.join('workflow', 'conda')),
                      help='Custom conda env directory', type=click.Path(), show_default=False),
-        click.argument('nf_args', nargs=-1)
+        click.argument('nextflow_args', nargs=-1)
     ]
     for option in reversed(options):
         func = option(func)
@@ -55,7 +55,7 @@ Add NextFlow args:  {{cookiecutter.project_slug}} run ... -log logDir -dockerize
 @click.command(epilog=EPILOG, context_settings={"ignore_unknown_options": True})
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
 @common_options
-def run(_input, paramsfile, configfile, threads, use_conda, conda_frontend, conda_prefix, nf_args, **kwargs):
+def run(_input, paramsfile, configfile, threads, use_conda, conda_frontend, conda_prefix, nextflow_args, **kwargs):
     """Run {{cookiecutter.project_name}}"""
     # Config to add or update in configfile
     merge_config = {
@@ -72,12 +72,12 @@ def run(_input, paramsfile, configfile, threads, use_conda, conda_frontend, cond
         use_conda=use_conda,
         conda_frontend=conda_frontend,
         conda_prefix=conda_prefix,
-        next_extra=nf_args,
+        next_extra=nextflow_args,
     )
 
 
 @click.command()
-@click.option('--configfile', default='config.yaml', help='Copy template config to file', show_default=True)
+@click.option('--configfile', default='nextflow.config', help='Copy template config to file', show_default=True)
 @click.option('--paramsfile', default='params.yaml', help='Custom params file', show_default=True)
 def config(configfile, paramsfile, **kwargs):
     """Copy the system default config files"""
