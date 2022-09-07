@@ -64,7 +64,7 @@ def run(_input, paramsfile, configfile, threads, use_conda, conda_frontend, cond
 
     # run!
     run_nextflow(
-        nextfile_path=nek_base(os.path.join('workflow', 'workflow.nf')),   # Full path to NextFlow file
+        nextfile_path=nek_base(os.path.join('workflow', 'main.nf')),   # Full path to NextFlow file
         paramsfile=paramsfile,
         configfile=configfile,
         merge_config=merge_config,
