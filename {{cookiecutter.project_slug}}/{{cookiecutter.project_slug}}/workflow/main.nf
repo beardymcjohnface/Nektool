@@ -1,15 +1,12 @@
-
 nextflow.enable.dsl=2
 
-printIn = params.input
-
 process yeet {
-  output:
+  output: 
     stdout
-  conda 'conda-forge::zstd'
-  shell:
+
+  script:
   """
-  echo $printIn
+  echo ${params.input}
   """
 }
 

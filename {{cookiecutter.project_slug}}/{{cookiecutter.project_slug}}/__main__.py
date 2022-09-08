@@ -16,7 +16,7 @@ def common_options(func):
         click.option('--paramsfile', default='params.yaml', help='Custom params file', show_default=True),
         click.option('--configfile', default='nextflow.config', help='Custom config file', show_default=True),
         click.option('--threads', help='Number of threads to use', default=1, show_default=True),
-        click.option('--use-conda/--no-use-conda', default=True, help='Use conda for NextFlow rules',
+        click.option('--use-conda/--no-use-conda', default=False, help='Use conda for Nextflow processes',
                      show_default=True),
         click.option('--conda-frontend',
                      type=click.Choice(['mamba', 'conda'], case_sensitive=True),
@@ -41,13 +41,13 @@ EPILOG = """
 \b
 CLUSTER EXECUTION:
 {{cookiecutter.project_slug}} run ... -profile [profile],[profile],...
-For information on NextFlow config and profiles see:
+For information on Nextflow config and profiles see:
 https://www.nextflow.io/docs/latest/config.html#config-profiles
 \b
 RUN EXAMPLES:
 Required:           {{cookiecutter.project_slug}} run --input [file]
 Specify threads:    {{cookiecutter.project_slug}} run ... --threads [threads]
-Disable conda:      {{cookiecutter.project_slug}} run ... --no-use-conda 
+Enable conda:       {{cookiecutter.project_slug}} run ... --use-conda 
 Add NextFlow args:  {{cookiecutter.project_slug}} run ... -log logDir -dockerize
 """
 
@@ -64,7 +64,7 @@ def run(_input, paramsfile, configfile, threads, use_conda, conda_frontend, cond
 
     # run!
     run_nextflow(
-        nextfile_path=nek_base(os.path.join('workflow', 'main.nf')),   # Full path to NextFlow file
+        nextfile_path=nek_base(os.path.join('workflow', 'main.nf')),   # Full path to Nextflow file
         paramsfile=paramsfile,
         configfile=configfile,
         merge_config=merge_config,
