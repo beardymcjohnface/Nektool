@@ -27,5 +27,5 @@ setup(
     '{{cookiecutter.project_slug}}={{cookiecutter.project_slug}}.__main__:main'
   ]},
  include_package_data=True,
- package_data={"{{cookiecutter.project_slug}}": ["*.yaml", "*.nf", "*.py", "*.R"]},
+ package_data={"{{cookiecutter.project_slug}}": ["*.yaml", "*.nf", "*.py", "*.R", "tiny.fastq"]},
 )
