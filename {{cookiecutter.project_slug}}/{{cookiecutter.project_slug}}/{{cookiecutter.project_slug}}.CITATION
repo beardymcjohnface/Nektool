@@ -1,0 +1,9 @@
+Please cite {{cookiecutter.project_name}} in your paper using this article:
+{{cookiecutter.citation_doi}}
+
+Please consider also citing these dependencies:
+Nektool:
+TBA
+
+Nextflow:
+https://doi.org/10.1038/nbt.3820

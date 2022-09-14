@@ -21,11 +21,10 @@ setup(
  author="{{cookiecutter.full_name}}",
  author_email="{{cookiecutter.email}}",
  py_modules=['{{cookiecutter.project_slug}}'],
- install_requires=['Click>=7', 'nextflow>=0.4.0', 'pyyaml'],
+ install_requires=['Click>=7', 'nextflow>=0.4.0', 'pyyaml>=6'],
  entry_points={
   'console_scripts': [
     '{{cookiecutter.project_slug}}={{cookiecutter.project_slug}}.__main__:main'
   ]},
  include_package_data=True,
- package_data={"{{cookiecutter.project_slug}}": ["*.yaml", "*.nf", "*.py", "*.R", "tiny.fastq"]},
 )
