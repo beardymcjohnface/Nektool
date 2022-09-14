@@ -19,12 +19,18 @@ def nek_base(rel_path):
 def print_version():
     with open(nek_base('{{cookiecutter.project_slug}}.VERSION'), 'r') as f:
         version = f.readline()
-    click.echo('\n' + '{{cookiecutter.project_name}} version ' + version + '\n')
+    click.echo('\n' + '{{cookiecutter.project_name}} version ' + version + '\n', err=True)
+
+
+def print_citation():
+    with open(snake_base('{{cookiecutter.project_slug}}.CITATION'), 'r') as f:
+        for line in f:
+            click.echo(line, nl=False, err=True)
 
 
 def msg(err_message):
     tstamp = strftime('[%Y:%m:%d %H:%M:%S] ', localtime())
-    click.echo(tstamp + err_message)
+    click.echo(tstamp + err_message, err=True)
 
 
 def msg_box(splash, errmsg=None):
@@ -32,7 +38,7 @@ def msg_box(splash, errmsg=None):
     msg(f'| {splash} |')
     msg(('-' * (len(splash) + 4)))
     if errmsg:
-        click.echo('\n' + errmsg)
+        click.echo('\n' + errmsg, err=True)
 
 
 def append_config_block(nf_config = 'nextflow.config', scope=None, **kwargs):

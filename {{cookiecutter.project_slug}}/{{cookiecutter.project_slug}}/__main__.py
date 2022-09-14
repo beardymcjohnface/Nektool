@@ -7,7 +7,7 @@ https://github.com/beardymcjohnface/Snaketool/wiki/Customising-your-Snaketool
 
 import os
 import click
-from .util import nek_base, print_version, copy_config, OrderedCommands, run_nextflow
+from .util import nek_base, print_version, copy_config, OrderedCommands, run_nextflow, print_citation
 
 
 def common_options(func):
@@ -37,7 +37,7 @@ def cli():
     pass
 
 
-EPILOG = """
+help_msg_extra = """
 \b
 CLUSTER EXECUTION:
 {{cookiecutter.project_slug}} run ... -profile [profile],[profile],...
@@ -52,7 +52,7 @@ Add NextFlow args:  {{cookiecutter.project_slug}} run ... -log logDir -dockerize
 """
 
 
-@click.command(epilog=EPILOG, context_settings={"ignore_unknown_options": True})
+@click.command(epilog=help_msg_extra, context_settings=dict(help_option_names=["-h", "--help"], ignore_unknown_options=True))
 @click.option('--input', '_input', help='Input file/directory', type=str, required=True)
 @common_options
 def run(_input, paramsfile, configfile, threads, use_conda, conda_frontend, conda_prefix, nextflow_args, **kwargs):
@@ -85,8 +85,15 @@ def config(configfile, paramsfile, **kwargs):
     copy_config(local_config=paramsfile, system_config=nek_base(os.path.join('workflow', 'params.yaml')))
 
 
+@click.command()
+def citation(**kwargs):
+    """Print the citation(s) for this tool"""
+    print_citation()
+
+
 cli.add_command(run)
 cli.add_command(config)
+cli.add_command(citation)
 
 
 def main():
