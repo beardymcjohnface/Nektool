@@ -83,6 +83,12 @@ Test run the template:
 my_nektool run --input yeet
 ```
 
+A slightly more interesting test using [any2fasta](https://github.com/tseemann/any2fasta) (in a conda environment) to convert a tiny FASTQ file to FASTA. 
+
+```sh
+my_nektool run --use-conda --input my_nektool/workflow/tiny.fastq -entry convert2fasta 
+```
+
 ## Publishing your tool
 
 Add your tool to pip and bioconda like you would any other python package.
