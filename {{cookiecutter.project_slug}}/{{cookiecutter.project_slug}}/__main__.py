@@ -48,7 +48,7 @@ RUN EXAMPLES:
 Required:           {{cookiecutter.project_slug}} run --input [file]
 Specify threads:    {{cookiecutter.project_slug}} run ... --threads [threads]
 Enable conda:       {{cookiecutter.project_slug}} run ... --use-conda 
-Add NextFlow args:  {{cookiecutter.project_slug}} run ... -log logDir -dockerize
+Add NextFlow args:  {{cookiecutter.project_slug}} run ... -work-dir workDir -with-docker
 """
 
 
