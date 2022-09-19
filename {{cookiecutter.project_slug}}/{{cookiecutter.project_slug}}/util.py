@@ -74,13 +74,13 @@ class OrderedCommands(click.Group):
 
 """RUN A NEXTFLOW FILE
 Hopefully you shouldn't need to tweak this function at all.
-- You must provide a NextFlow file, all else is optional
+- You must provide a Nextflow file, all else is optional
 - Highly recommend supplying a params file and a config file"""
 
 
 def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_config=None, threads=None, use_conda=False,
                   conda_frontend=None, conda_prefix=None, next_extra=None):
-    """Run a NextFlow workfile"""
+    """Run a Nextflow workfile"""
     nextflow_command = ['nextflow', 'run', nextfile_path]
 
     if paramsfile:
@@ -120,16 +120,16 @@ def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_con
         # display the runtime configuration
         msg_box('Launcher Configuration', errmsg=open(configfile, 'r').read())
 
-    # add any additional NextFlow commands
+    # add any additional Nextflow commands
     if next_extra:
         nextflow_command += list(next_extra)
 
-    # Run NextFlow!!!
+    # Run Nextflow!!!
     nextflow_command = ' '.join(str(nf) for nf in nextflow_command)
-    msg_box('NextFlow command', errmsg=nextflow_command)
+    msg_box('Nextflow command', errmsg=nextflow_command)
     if not subprocess.run(nextflow_command, shell=True).returncode == 0:
-        msg('Error: NextFlow failed')
+        msg('Error: Nextflow failed')
         sys.exit(1)
     else:
-        msg('NextFlow finished successfully')
+        msg('Nextflow finished successfully')
     return 0
