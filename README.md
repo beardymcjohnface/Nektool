@@ -21,6 +21,12 @@ Building a Nextflow pipeline with a convenience launcher offers many advantages:
 People who are already familiar with Nextflow and want to create either a Nextflow-powered command line 
 tool or fancier Nextflow pipelines.
 
+## Citation
+
+This template is currently published as a preprint:
+
+[https://doi.org/10.31219/osf.io/8w5j3](https://doi.org/10.31219/osf.io/8w5j3)
+
 ## Usage
 
 To create a new tool from this template, use Cookiecutter and follow the prompts.
