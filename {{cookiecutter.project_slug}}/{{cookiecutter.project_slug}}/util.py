@@ -23,7 +23,7 @@ def print_version():
 
 
 def print_citation():
-    with open(snake_base('{{cookiecutter.project_slug}}.CITATION'), 'r') as f:
+    with open(nek_base('{{cookiecutter.project_slug}}.CITATION'), 'r') as f:
         for line in f:
             click.echo(line, nl=False, err=True)
 
