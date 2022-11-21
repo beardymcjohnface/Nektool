@@ -97,5 +97,4 @@ my_nektool run --use-conda --input my_nektool/workflow/tiny.fastq -entry convert
 
 ## Publishing your tool
 
-Add your tool to pip and bioconda like you would any other python package.
-Better instructions TBA, watch this space!
+__[Check out the wiki page](https://github.com/beardymcjohnface/Snaketool/wiki/Publishing-your-Snaketool) for a detailed look at publishing your tool to PyPI and Conda__
