@@ -79,7 +79,7 @@ Hopefully you shouldn't need to tweak this function at all.
 
 
 def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_config=None, threads=None, use_conda=False,
-                  conda_frontend=None, conda_prefix=None, next_extra=None):
+                  conda_frontend=None, conda_prefix=None, nextflow_args=None):
     """Run a Nextflow workfile"""
     nextflow_command = ['nextflow', 'run', nextfile_path]
 
@@ -121,8 +121,8 @@ def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_con
         msg_box('Launcher Configuration', errmsg=open(configfile, 'r').read())
 
     # add any additional Nextflow commands
-    if next_extra:
-        nextflow_command += list(next_extra)
+    if nextflow_args:
+        nextflow_command += list(nextflow_args)
 
     # Run Nextflow!!!
     nextflow_command = ' '.join(str(nf) for nf in nextflow_command)
