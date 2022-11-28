@@ -17,57 +17,60 @@ def nek_base(rel_path):
 
 
 def print_version():
-    with open(nek_base('{{cookiecutter.project_slug}}.VERSION'), 'r') as f:
+    with open(nek_base("{{cookiecutter.project_slug}}.VERSION"), "r") as f:
         version = f.readline()
-    click.echo('\n' + '{{cookiecutter.project_name}} version ' + version + '\n', err=True)
+    click.echo(
+        "\n" + "{{cookiecutter.project_name}} version " + version + "\n", err=True
+    )
 
 
 def print_citation():
-    with open(nek_base('{{cookiecutter.project_slug}}.CITATION'), 'r') as f:
+    with open(nek_base("{{cookiecutter.project_slug}}.CITATION"), "r") as f:
         for line in f:
             click.echo(line, nl=False, err=True)
 
 
 def msg(err_message):
-    tstamp = strftime('[%Y:%m:%d %H:%M:%S] ', localtime())
+    tstamp = strftime("[%Y:%m:%d %H:%M:%S] ", localtime())
     click.echo(tstamp + err_message, err=True)
 
 
 def msg_box(splash, errmsg=None):
-    msg('-' * (len(splash) + 4))
-    msg(f'| {splash} |')
-    msg(('-' * (len(splash) + 4)))
+    msg("-" * (len(splash) + 4))
+    msg(f"| {splash} |")
+    msg(("-" * (len(splash) + 4)))
     if errmsg:
-        click.echo('\n' + errmsg, err=True)
+        click.echo("\n" + errmsg, err=True)
 
 
-def append_config_block(nf_config = 'nextflow.config', scope=None, **kwargs):
-    with open(nf_config, 'a') as f:
-        f.write(scope.rstrip() + '{' + '\n')
+def append_config_block(nf_config="nextflow.config", scope=None, **kwargs):
+    with open(nf_config, "a") as f:
+        f.write(scope.rstrip() + "{" + "\n")
         for k in kwargs:
-            f.write(f'{k} = {kwargs[k]}\n')
-        f.write('}\n')
+            f.write(f"{k} = {kwargs[k]}\n")
+        f.write("}\n")
 
 
 def copy_config(local_config=None, system_config=None):
-    msg(f'Copying system default config to {local_config}')
+    msg(f"Copying system default config to {local_config}")
     copyfile(system_config, local_config)
 
 
 def read_config(file):
-    with open(file, 'r') as stream:
+    with open(file, "r") as stream:
         _config = yaml.safe_load(stream)
     return _config
 
 
 def write_config(_config, file):
-    msg(f'Writing runtime config file to {file}')
-    with open(file, 'w') as stream:
+    msg(f"Writing runtime config file to {file}")
+    with open(file, "w") as stream:
         yaml.dump(_config, stream)
 
 
 class OrderedCommands(click.Group):
     """Preserve the order of subcommands when printing --help"""
+
     def list_commands(self, ctx: click.Context):
         return list(self.commands)
 
@@ -78,14 +81,26 @@ Hopefully you shouldn't need to tweak this function at all.
 - Highly recommend supplying a params file and a config file"""
 
 
-def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_config=None, threads=None, use_conda=False,
-                  conda_frontend=None, conda_prefix=None, nextflow_args=None):
+def run_nextflow(
+    paramsfile=None,
+    configfile=None,
+    nextfile_path=None,
+    merge_config=None,
+    threads=None,
+    use_conda=False,
+    conda_frontend=None,
+    conda_prefix=None,
+    nextflow_args=None,
+):
     """Run a Nextflow workfile"""
-    nextflow_command = ['nextflow', 'run', nextfile_path]
+    nextflow_command = ["nextflow", "run", nextfile_path]
 
     if paramsfile:
         # copy sys default params if needed
-        copy_config(local_config=paramsfile, system_config=nek_base(os.path.join('workflow', 'params.yaml')))
+        copy_config(
+            local_config=paramsfile,
+            system_config=nek_base(os.path.join("workflow", "params.yaml")),
+        )
 
         # read the params
         nf_config = read_config(paramsfile)
@@ -96,13 +111,16 @@ def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_con
 
         # update params file
         write_config(nf_config, paramsfile)
-        nextflow_command += ['-params-file', paramsfile]
+        nextflow_command += ["-params-file", paramsfile]
 
         # display the runtime params
-        msg_box('Runtime parameters', errmsg=yaml.dump(nf_config, Dumper=yaml.Dumper))
+        msg_box("Runtime parameters", errmsg=yaml.dump(nf_config, Dumper=yaml.Dumper))
 
     if configfile:
-        copy_config(local_config=configfile, system_config=nek_base(os.path.join('workflow', 'nextflow.config')))
+        copy_config(
+            local_config=configfile,
+            system_config=nek_base(os.path.join("workflow", "nextflow.config")),
+        )
 
         # add threads
         if threads:
@@ -110,26 +128,28 @@ def run_nextflow(paramsfile=None, configfile=None, nextfile_path=None, merge_con
 
         # Use conda
         if use_conda:
-            if conda_frontend == 'mamba':
-                append_config_block(scope='conda', useMamba='"true"', cacheDir=f'"{conda_prefix}"')
+            if conda_frontend == "mamba":
+                append_config_block(
+                    scope="conda", useMamba='"true"', cacheDir=f'"{conda_prefix}"'
+                )
             else:
-                append_config_block(scope='conda', cacheDir=f'"{conda_prefix}"')
+                append_config_block(scope="conda", cacheDir=f'"{conda_prefix}"')
 
-        nextflow_command += ['-c', configfile]
+        nextflow_command += ["-c", configfile]
 
         # display the runtime configuration
-        msg_box('Launcher Configuration', errmsg=open(configfile, 'r').read())
+        msg_box("Launcher Configuration", errmsg=open(configfile, "r").read())
 
     # add any additional Nextflow commands
     if nextflow_args:
         nextflow_command += list(nextflow_args)
 
     # Run Nextflow!!!
-    nextflow_command = ' '.join(str(nf) for nf in nextflow_command)
-    msg_box('Nextflow command', errmsg=nextflow_command)
+    nextflow_command = " ".join(str(nf) for nf in nextflow_command)
+    msg_box("Nextflow command", errmsg=nextflow_command)
     if not subprocess.run(nextflow_command, shell=True).returncode == 0:
-        msg('Error: Nextflow failed')
+        msg("Error: Nextflow failed")
         sys.exit(1)
     else:
-        msg('Nextflow finished successfully')
+        msg("Nextflow finished successfully")
     return 0
