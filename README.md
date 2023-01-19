@@ -1,4 +1,8 @@
 # Nektool
+
+[![CI](https://github.com/beardymcjohnface/Nektool/actions/workflows/python-app.yml/badge.svg)](https://github.com/beardymcjohnface/Nektool/actions/workflows/python-app.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 [Cookiecutter](https://github.com/cookiecutter/cookiecutter) profile for making a Nextflow-based bioinformatics tool
 
 __See [Snaketool](https://github.com/beardymcjohnface/Snaketool) for a Snakemake-based template__
