@@ -23,9 +23,9 @@ tool or fancier Nextflow pipelines.
 
 ## Citation
 
-This template is currently published as a preprint:
+This template is published in Plos Computational Biology:
 
-[https://doi.org/10.31219/osf.io/8w5j3](https://doi.org/10.31219/osf.io/8w5j3)
+[https://doi.org/10.1371/journal.pcbi.1010705](https://doi.org/10.1371/journal.pcbi.1010705)
 
 ## Usage
 
