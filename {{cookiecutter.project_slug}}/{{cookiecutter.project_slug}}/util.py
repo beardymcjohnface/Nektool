@@ -16,12 +16,10 @@ def nek_base(rel_path):
     return os.path.join(os.path.dirname(os.path.realpath(__file__)), rel_path)
 
 
-def print_version():
+def get_version():
     with open(nek_base("{{cookiecutter.project_slug}}.VERSION"), "r") as f:
         version = f.readline()
-    click.echo(
-        "\n" + "{{cookiecutter.project_name}} version " + version + "\n", err=True
-    )
+    return version
 
 
 def print_citation():

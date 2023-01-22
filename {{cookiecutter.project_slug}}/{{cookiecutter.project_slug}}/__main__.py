@@ -9,7 +9,7 @@ import os
 import click
 from .util import (
     nek_base,
-    print_version,
+    get_version,
     copy_config,
     OrderedCommands,
     run_nextflow,
@@ -65,8 +65,11 @@ def common_options(func):
 @click.group(
     cls=OrderedCommands, context_settings=dict(help_option_names=["-h", "--help"])
 )
+@click.version_option(get_version(), "-v", "--version", is_flag=True)
 def cli():
-    """For more options, run:
+    """{{cookiecutter.project_description}}
+    \b
+    For more options, run:
     {{cookiecutter.project_slug}} command --help"""
     pass
 
@@ -145,7 +148,6 @@ cli.add_command(citation)
 
 
 def main():
-    print_version()
     cli()
 
 
