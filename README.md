@@ -1,7 +1,9 @@
 # Nektool
 
-[![CI](https://github.com/beardymcjohnface/Nektool/actions/workflows/python-app.yml/badge.svg)](https://github.com/beardymcjohnface/Nektool/actions/workflows/python-app.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Generic badge](https://img.shields.io/badge/Citation-10.1371/journal.pcbi.1010705-<COLOR>.svg)](https://doi.org/10.1371/journal.pcbi.1010705)
+[![CI](https://github.com/beardymcjohnface/Nektool/actions/workflows/python-app.yml/badge.svg)](https://github.com/beardymcjohnface/Nektool/actions/workflows/python-app.yml)
+![GitHub last commit](https://img.shields.io/github/last-commit/beardymcjohnface/nektool)
 
 [Cookiecutter](https://github.com/cookiecutter/cookiecutter) profile for making a Nextflow-based bioinformatics tool
 
@@ -33,6 +35,13 @@ This template is published in Plos Computational Biology:
 
 ## Usage
 
+Install Cookiecutter if you don't already have it.
+
+```shell
+conda create -n cookiecutter -c conda-forge cookiecutter 
+conda activate cookiecutter
+```
+
 To create a new tool from this template, use Cookiecutter and follow the prompts.
 
 ```shell
@@ -43,10 +52,12 @@ and here's what you get:
 
 ```text
 my_nektool/
+├── MANIFEST.in
 ├── my_nektool
 │   ├── __init__.py
 │   ├── __main__.py
 │   ├── util.py
+│   ├── my_nektool.CITATION
 │   ├── my_nektool.LICENSE
 │   ├── my_nektool.VERSION
 │   └── workflow
