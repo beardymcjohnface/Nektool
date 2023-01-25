@@ -6,6 +6,7 @@ import sys
 import os
 import subprocess
 import yaml
+import collections.abc
 from shutil import copyfile
 from time import localtime, strftime
 
@@ -60,6 +61,17 @@ def read_config(file):
     return _config
 
 
+def update_config(config, overwrite_config):
+    def _update(d, u):
+        for (key, value) in u.items():
+            if isinstance(value, collections.abc.Mapping):
+                d[key] = _update(d.get(key, {}), value)
+            else:
+                d[key] = value
+        return d
+    _update(config, overwrite_config)
+
+
 def write_config(_config, file):
     msg(f"Writing runtime config file to {file}")
     with open(file, "w") as stream:
@@ -105,7 +117,7 @@ def run_nextflow(
 
         # merge in command line params if provided
         if merge_config:
-            nf_config.update(merge_config)
+            update_config(nf_config, merge_config)
 
         # update params file
         write_config(nf_config, paramsfile)
