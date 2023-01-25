@@ -112,4 +112,4 @@ my_nektool run --use-conda --input my_nektool/workflow/tiny.fastq -entry convert
 
 ## Publishing your tool
 
-__[Check out the wiki page](https://github.com/beardymcjohnface/Snaketool/wiki/Publishing-your-Snaketool) for a detailed look at publishing your tool to PyPI and Conda__
+__[Check out the wiki page](https://github.com/beardymcjohnface/Snaketool/wiki/Publishing-your-Snaketool-or-Nektool) for a detailed look at publishing your tool to PyPI and Conda__
