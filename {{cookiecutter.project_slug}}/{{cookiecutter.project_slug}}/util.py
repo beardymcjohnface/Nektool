@@ -46,7 +46,7 @@ def append_config_block(nf_config="nextflow.config", scope=None, **kwargs):
     with open(nf_config, "a") as f:
         f.write(scope.rstrip() + "{" + "\n")
         for k in kwargs:
-            f.write(f"{k} = {kwargs[k]}\n")
+            f.write(f"\t{k} = {kwargs[k]}\n")
         f.write("}\n")
 
 
