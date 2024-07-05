@@ -138,6 +138,9 @@ def run_nextflow(
 
         # Use conda
         if use_conda:
+            append_config_block(
+                scope="conda", enabled='"true"'
+            )
             if conda_frontend == "mamba":
                 append_config_block(
                     scope="conda", useMamba='"true"', cacheDir=f'"{conda_prefix}"'
